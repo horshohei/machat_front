@@ -18,12 +18,11 @@ const UserDisplay = ({ user, myToken }: { user: User; myToken: string | null }) 
     let icon = '👤';
     let textColor = 'text-white';
     let nameSuffix = '';
-
     switch (type) {
         case 'me':
             icon = '🧑‍💻';
             nameSuffix = ' (自分)';
-            textColor = 'text-yellow-400'; // 自分の色
+            textColor = 'text-amber-800'; // 自分の色
             break;
         case 'facilitator':
             icon = '👑'; // ファシリテーターのアイコン
@@ -35,6 +34,7 @@ const UserDisplay = ({ user, myToken }: { user: User; myToken: string | null }) 
             break;
         default: // 'other'
             icon = '👤';
+            textColor = 'text-gray-800';
             break;
     }
 
@@ -91,11 +91,11 @@ export const Sidebar = () => {
                 method: 'POST',
             });
             if (response.ok) {
-                const data = await response.json();
+                //const data = await response.json();
                 // ストアを即時更新 (サーバーからのWebSocketメッセージでの更新も期待するが、UI反応を良くするため)
-                if(data.ai_participant_added){
-                    addAiParticipantStore(data.ai_participant_added);
-                }
+                //if(data.ai_participant_added){
+                //    addAiParticipantStore(data.ai_participant_added);
+                //}
                 // setActiveAiParticipants(data.active_ais || []); // FastAPIが返すリストで更新してもよい
                 setNewAiName('');
             } else {
@@ -118,11 +118,11 @@ export const Sidebar = () => {
                 method: 'DELETE',
             });
             if (response.ok) {
-                const data = await response.json();
+                //const data = await response.json();
                 // ストアを即時更新
-                if(data.ai_participant_removed){
-                    removeAiParticipantStore(data.ai_participant_removed);
-                }
+                //if(data.ai_participant_removed){
+                //    removeAiParticipantStore(data.ai_participant_removed);
+                //}
                 // setActiveAiParticipants(data.active_ais || []);
             } else {
                 const errorData = await response.json().catch(() => ({}));
@@ -138,10 +138,10 @@ export const Sidebar = () => {
 
 
     return (
-        <aside className="w-72 bg-gray-800 text-white p-6 flex flex-col space-y-6">
+        <aside className="w-72 bg-gray-100 text-black p-6 flex flex-col space-y-6 border-r border-gray-200">
             <div>
                 <h2 className="text-xl font-semibold mb-4">参加者</h2>
-                <ul className="space-y-2 max-h-60 overflow-y-auto">
+                <ul className="space-y-2 max-h-60 overflow-y-auto font-bold">
                     {users.length > 0 ? (
                         users.map((user) => (
                             <li key={user.id}>
@@ -149,7 +149,7 @@ export const Sidebar = () => {
                             </li>
                         ))
                     ) : (
-                        <li className="text-gray-400">参加者はいません。</li>
+                        <li className="text-gray-600">参加者はいません。</li>
                     )}
                 </ul>
             </div>
@@ -157,22 +157,22 @@ export const Sidebar = () => {
             <div className="border-t border-gray-700 pt-6">
                 <h3 className="text-lg font-semibold mb-3">AI設定</h3>
                 {/* ファシリテーター制御 */}
-                <div className="flex items-center justify-between mb-4">
-                    <span className="text-sm">AIファシリテーター</span>
+                <div className="flex items-center justify-between mb-4 bg-indigo-100 pl-2 p-1 rounded-md">
+                    <span className="text-sm font-bold">AIファシリテーター</span>
                     <button
                         onClick={handleToggleFacilitator}
                         disabled={isLoadingFacilitator}
                         className={`px-3 py-1 text-xs rounded-md ${
-                            facilitatorEnabled ? 'bg-red-500 hover:bg-red-600' : 'bg-green-500 hover:bg-green-600'
+                            facilitatorEnabled ? 'bg-green-700 hover:bg-green-700 text-gray-100' : 'bg-red-700 hover:bg-red-800 text-white'
                         } disabled:opacity-50`}
                     >
-                        {isLoadingFacilitator ? '処理中...' : facilitatorEnabled ? 'OFFにする' : 'ONにする'}
+                        {isLoadingFacilitator ? '処理中...' : facilitatorEnabled ? '動作中' : '停止中'}
                     </button>
                 </div>
 
                 {/* AI参加者追加 */}
                 <form onSubmit={handleAddAiParticipant} className="space-y-2 mb-4">
-                    <label htmlFor="aiName" className="block text-sm font-medium">AI参加者追加:</label>
+                    <label htmlFor="aiName" className="block text-sm font-bold">AI参加者追加:</label>
                     <div className="flex space-x-2">
                         <input
                             id="aiName"
@@ -180,12 +180,12 @@ export const Sidebar = () => {
                             value={newAiName}
                             onChange={(e) => setNewAiName(e.target.value)}
                             placeholder="AI名を入力"
-                            className="flex-grow p-2 bg-gray-700 border border-gray-600 rounded-md text-sm focus:ring-blue-500 focus:border-blue-500"
+                            className="flex-grow p-2 bg-[#fefaf4] rounded-md text-sm focus:ring-blue-200 focus:border-blue-500"
                         />
                         <button
                             type="submit"
                             disabled={isLoadingAddAi || !newAiName.trim()}
-                            className="px-3 py-2 bg-blue-600 hover:bg-blue-700 rounded-md text-sm disabled:opacity-50"
+                            className="px-3 py-2 bg-sky-200 hover:bg-sky-300 text-gray-900 rounded-md text-sm disabled:opacity-50"
                         >
                             {isLoadingAddAi ? '追加中...' : '追加'}
                         </button>
@@ -198,12 +198,12 @@ export const Sidebar = () => {
                         <h4 className="text-sm font-medium mb-2">アクティブなAI参加者:</h4>
                         <ul className="space-y-1 text-sm">
                             {activeAiParticipants.map((aiName) => (
-                                <li key={aiName} className="flex justify-between items-center bg-gray-700 px-2 py-1 rounded">
-                                    <span className="truncate text-cyan-400">🤖 {aiName}</span>
+                                <li key={aiName} className="flex justify-between items-center bg-[#fefaf4] px-2 py-1 rounded">
+                                    <span className="truncate text-gray-900">🤖 {aiName}</span>
                                     <button
                                         onClick={() => handleRemoveAiParticipant(aiName)}
                                         disabled={isLoadingRemoveAi === aiName}
-                                        className="text-red-400 hover:text-red-300 text-xs disabled:opacity-50"
+                                        className="text-red-600 hover:text-red-300 text-xs disabled:opacity-50"
                                     >
                                         {isLoadingRemoveAi === aiName ? '削除中...' : '削除'}
                                     </button>

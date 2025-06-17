@@ -52,7 +52,7 @@ export default function ChatPage() {
         <div className="flex h-screen bg-gray-100">
             <Sidebar />
             <div className="flex flex-col flex-1">
-                <header className="p-6 bg-white border-b shadow-sm">
+                <header className="pt-4 pl-7 pb-1 bg-white border-b shadow-sm">
                     <h1 className="text-2xl font-semibold text-gray-900">
                         チャットルーム: {roomId} {/* ★ state の roomId を使用 */}
                         <span className={`ml-3 text-sm font-normal px-2 py-1 rounded-full ${isConnected ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>

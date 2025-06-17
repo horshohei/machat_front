@@ -24,12 +24,10 @@ export default function HomePage() {
             <main className="text-center p-8 max-w-2xl">
                 {/* --- ① ヒーローセクション --- */}
                 <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-500 text-transparent bg-clip-text">
-                    AIと、次の対話を始めよう。
+                    AIはあなたを助けてくれますか？
                 </h1>
                 <p className="text-lg text-gray-300 mb-8">
-                    AIファシリテーターが、あなたのチームの議論を活性化し、より創造的な結論へと導きます。
-                </p>
-
+                    複数人と複数AIが協力・対話し、<br className="hidden md:inline"/>議論の広がりやAIのファシリテーション効果を<br className="hidden md:inline"/>体験・検証できますか？                </p>
                 <form onSubmit={handleJoinRoom} className="flex flex-col gap-4 w-full max-w-lg mx-auto">
                     {/* ★ ユーザー名入力欄を追加 */}
                     <input
@@ -58,8 +56,12 @@ export default function HomePage() {
                 </form>
 
                 <div className="mt-16 w-full p-4 border border-gray-700 rounded-lg bg-black bg-opacity-30 shadow-2xl">
-                    {/* ここにチャット画面のモックアップ画像などを配置 */}
-                    <p className="text-gray-400">[チャット画面のイメージ画像]</p>
+                    <h2 className="text-lg font-bold mb-2 text-blue-200">🧪 実験用シナリオ例</h2>
+                    <ul className="text-left text-sm text-blue-100 space-y-1">
+                        <li>・うどんつゆ「関西風vs関東風」論争</li>
+                        <li>・文化祭の飲食マニュアル作成ディスカッション</li>
+                        <li>など、複数AI＋人間による議論の流れをすぐに体験できますか？</li>
+                    </ul>
                 </div>
 
                 {/* --- ② 特徴紹介セクション (ヒーローセクションの下に配置) --- */}
@@ -71,10 +73,6 @@ export default function HomePage() {
                     <div className="text-left">
                         <h3 className="text-xl font-bold mb-2">👥 AI参加者</h3>
                         <p className="text-gray-400">専門家やアイデアマンとしてAIをチャットに参加させ、議論に新しい視点をもたらします。</p>
-                    </div>
-                    <div className="text-left">
-                        <h3 className="text-xl font-bold mb-2">📝 Markdown対応</h3>
-                        <p className="text-gray-400">コードブロックやリストを使って、情報を整理しながら表現力豊かにコミュニケーションできます。</p>
                     </div>
                 </div>
 

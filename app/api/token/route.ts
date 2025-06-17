@@ -1,7 +1,7 @@
 // app/api/token/route.ts
 import { NextResponse } from 'next/server';
 
-const FASTAPI_URL = process.env.FASTAPI_URL || 'http://localhost:8000';
+const FASTAPI_URL = process.env.FASTAPI_URL || 'http://localhost:8080';
 
 export async function POST(request: Request) { // request を受け取るように変更
     try {

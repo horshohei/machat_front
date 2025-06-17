@@ -1,7 +1,7 @@
 // app/api/room/[room_id]/ai_participant/[ai_name]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 
-const FASTAPI_URL = process.env.FASTAPI_URL || 'http://localhost:8000';
+const FASTAPI_URL = process.env.FASTAPI_URL || 'http://localhost:8080';
 
 // AI参加者追加
 export async function POST(

@@ -1,6 +1,6 @@
 // components/Message.tsx
 import { Message as MessageType, useChatStore, User } from '@/store/chatStore';
-import ReactMarkdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 const formatTimestamp = (isoString: string | undefined): string => {
@@ -101,7 +101,7 @@ export const Message = ({ message }: { message: MessageType }) => {
     }
 
     // user_id が存在する場合の処理
-    const isMe = message.user_id === myToken;
+    const isMe = message.username === myUsername;
     const isFacilitator = message.user_id === 'AIAssistantFacilitator';
     const isAIParticipant = message.user_id?.startsWith('AIAssistant_') && !isFacilitator; // Optional chaining
 
@@ -112,31 +112,31 @@ export const Message = ({ message }: { message: MessageType }) => {
             <div
                 className={`rounded-lg p-3 max-w-3xl shadow-sm ${
                     isMe
-                        ? 'bg-blue-600 text-white'
+                        ? 'bg-gray-200 text-gray-900'
                         : isFacilitator
-                            ? 'bg-purple-600 text-white'
+                            ? 'bg-[#f8ffff] text-gray-900'
                             : isAIParticipant
-                                ? 'bg-teal-600 text-white'
+                                ? 'bg-[#fefaf4] backdrop-blur-md text-gray-900'
                                 : 'bg-white text-gray-900 border border-gray-200'
                 }`}
             >
-                {!isMe && (
+
                     <div className="font-bold mb-1 text-sm">
-                        {isFacilitator ? '👑 ' : isAIParticipant ? '🤖 ' : '👤 '}
+                        {isFacilitator ? '👑 ' : isAIParticipant ? '🤖 ' : isMe ? '(自分) ':'👤 '}
                         {displayName}
                     </div>
-                )}
-                <div className="text-sm prose prose-sm max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-headings:my-2 prose-blockquote:my-1 prose-a:text-blue-500 hover:prose-a:text-blue-400 dark:prose-invert dark:prose-a:text-blue-400">
-                    <ReactMarkdown
+
+                <div className="prose max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-headings:my-2 prose-blockquote:my-1 prose-a:text-blue-500 hover:prose-a:text-blue-400 dark:prose-invert dark:prose-a:text-blue-400">
+                    <Markdown
                         remarkPlugins={[remarkGfm]}
                         components={{
                             a: ({node, ...props}) => <a {...props} target="_blank" rel="noopener noreferrer" className="text-inherit hover:underline" />,
                         }}
                     >
                         {message.message}
-                    </ReactMarkdown>
+                    </Markdown>
                 </div>
-                <div className={`text-xs mt-2 opacity-70 ${isMe ? 'text-blue-200' : (isFacilitator || isAIParticipant) ? 'text-gray-300' : 'text-gray-500'} text-right`}>
+                <div className={`text-xs mt-2 opacity-70 ${isMe ? 'text-gray-800' : (isFacilitator || isAIParticipant) ? 'text-gray-800' : 'text-gray-800'} text-right`}>
                     {formatTimestamp(message.timestamp)}
                 </div>
             </div>

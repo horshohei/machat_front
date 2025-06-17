@@ -51,11 +51,11 @@ export const MessageInput = ({ onSend, isConnected }: MessageInputProps) => {
     }, [input]);
 
     return (
-        <form onSubmit={handleSubmit} className="p-4 border-t bg-gray-50">
-            <div className="flex items-start bg-white border border-gray-300 rounded-lg p-2 shadow-sm focus-within:ring-2 focus-within:ring-blue-500">
+        <form onSubmit={handleSubmit} className="p-5 border-t bg-gray-50">
+            <div className="flex items-start bg-gray-200 border border-gray-200 rounded-lg p-2 shadow-sm focus-within:ring-2 focus-within:ring-gray-300">
         <textarea
             ref={textareaRef}
-            className="flex-1 px-2 py-2 border-none focus:ring-0 resize-none bg-transparent overflow-y-hidden"
+            className="flex-1 px-2 py-2 border-none focus:ring-0 focus:ring-neutral-300 resize-none bg-transparent overflow-y-hidden text-xl"
             placeholder="メッセージを入力... (Shift+Enterで送信)"
             value={input}
             onChange={handleTextareaChange}
@@ -66,7 +66,7 @@ export const MessageInput = ({ onSend, isConnected }: MessageInputProps) => {
         />
                 <button
                     type="submit"
-                    className="ml-2 px-6 py-2 bg-blue-600 text-white rounded-lg self-end hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="ml-2 px-6 py-2 bg-gray-600 text-white rounded-lg self-end hover:bg-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={!isConnected || !input.trim()}
                 >
                     送信
