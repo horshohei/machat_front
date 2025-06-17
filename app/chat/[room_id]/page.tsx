@@ -22,8 +22,9 @@ export default function ChatPage() {
         // params は { room_id: '...' } のようなオブジェクトを返します。
         // 値が存在し、かつ文字列であることを確認します。
         if (params && typeof params.room_id === 'string') {
-            setRoomId(params.room_id);
-            console.log("Room ID set:", params.room_id);
+            const decodedRoomId = decodeURIComponent(params.room_id); // ★ ここでデコード
+            setRoomId(decodedRoomId);
+            console.log("Room ID set:", decodedRoomId);
             setinputUsername(searchParams.get('username')); // URLのクエリパラメータからusernameを取得
             // ★ ここで確認
         }

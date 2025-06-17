@@ -1,13 +1,32 @@
 // app/page.tsx
 'use client';
 
-import { useState, FormEvent } from 'react';
-import { useRouter } from 'next/navigation';
+import { useState, FormEvent, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 
 export default function HomePage() {
     const [roomName, setRoomName] = useState('');
     const [username, setUsername] = useState(''); // ★ ユーザー名の状態を追加
     const router = useRouter();
+    const searchParams = useSearchParams(); // ★ URLのクエリパラメータを取得するためのフック
+
+    console.log(searchParams);
+    // ★ コンポーネントが最初に読み込まれた時に一度だけ実行する
+    useEffect(() => {
+        // URLから 'roomName' クエリパラメータを取得
+        const prefilledRoomName = searchParams.get('roomName');
+        if (prefilledRoomName) {
+            // URLデコードしてステートに設定
+            setRoomName(decodeURIComponent(prefilledRoomName));
+        }
+
+        // URLから 'username' クエリパラメータを取得
+        const prefilledUsername = searchParams.get('username');
+        if (prefilledUsername) {
+            // URLデコードしてステートに設定
+            setUsername(decodeURIComponent(prefilledUsername));
+        }
+    }, [searchParams]); // searchParams が利用可能になったら実行
 
     const handleJoinRoom = (e: FormEvent) => {
         e.preventDefault();
@@ -24,10 +43,10 @@ export default function HomePage() {
             <main className="text-center p-8 max-w-2xl">
                 {/* --- ① ヒーローセクション --- */}
                 <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-purple-400 to-blue-500 text-transparent bg-clip-text">
-                    AIはあなたを助けてくれますか？
+                    複数人とAIが協力するチャットルーム
                 </h1>
                 <p className="text-lg text-gray-300 mb-8">
-                    複数人と複数AIが協力・対話し、<br className="hidden md:inline"/>議論の広がりやAIのファシリテーション効果を<br className="hidden md:inline"/>体験・検証できますか？                </p>
+                    複数人と複数AIが協力・対話し、<br className="hidden md:inline"/>議論の広がりやAIのファシリテーション効果を<br className="hidden md:inline"/>体験・検証しませんか         </p>
                 <form onSubmit={handleJoinRoom} className="flex flex-col gap-4 w-full max-w-lg mx-auto">
                     {/* ★ ユーザー名入力欄を追加 */}
                     <input
@@ -36,7 +55,6 @@ export default function HomePage() {
                         onChange={(e) => setUsername(e.target.value)}
                         placeholder="あなたの表示名を入力..."
                         className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
-                        required
                     />
                     <input
                         type="text"
@@ -49,7 +67,7 @@ export default function HomePage() {
                     <button
                         type="submit"
                         className="w-full px-8 py-3 bg-blue-600 font-semibold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-blue-500 transition disabled:opacity-50"
-                        disabled={!roomName.trim() || !username.trim()}
+                        disabled={!roomName.trim()}
                     >
                         ルームを作成 / 参加
                     </button>
@@ -60,15 +78,15 @@ export default function HomePage() {
                     <ul className="text-left text-sm text-blue-100 space-y-1">
                         <li>・うどんつゆ「関西風vs関東風」論争</li>
                         <li>・文化祭の飲食マニュアル作成ディスカッション</li>
-                        <li>など、複数AI＋人間による議論の流れをすぐに体験できますか？</li>
+                        <li>など、複数AI＋人間による議論の流れをすぐに体験できるでしょう。</li>
                     </ul>
                 </div>
 
                 {/* --- ② 特徴紹介セクション (ヒーローセクションの下に配置) --- */}
-                <div className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div className="mt-24 grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="text-left">
                         <h3 className="text-xl font-bold mb-2">🤖 AIファシリテーター</h3>
-                        <p className="text-gray-400">議論が停滞したり、脱線したりすると、AIが自然に介入し、会話の流れをスムーズにします。</p>
+                        <p className="text-gray-400">議論が停滞したり、脱線したりすると、AIが介入し、会話の流れをスムーズにします。</p>
                     </div>
                     <div className="text-left">
                         <h3 className="text-xl font-bold mb-2">👥 AI参加者</h3>
