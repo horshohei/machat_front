@@ -55,7 +55,7 @@ export const MessageInput = ({ onSend, isConnected }: MessageInputProps) => {
             <div className="flex items-start bg-gray-200 border border-gray-200 rounded-lg p-2 shadow-sm focus-within:ring-2 focus-within:ring-gray-300">
         <textarea
             ref={textareaRef}
-            className="flex-1 px-2 py-2 border-none focus:ring-0 focus:ring-neutral-300 resize-none bg-transparent overflow-y-hidden text-xl"
+            className="flex-1 px-2 py-2 border-none focus:ring-0 focus:ring-neutral-300 resize-none bg-transparent overflow-y-hidden text-base"
             placeholder="メッセージを入力... (Shift+Enterで送信)"
             value={input}
             onChange={handleTextareaChange}

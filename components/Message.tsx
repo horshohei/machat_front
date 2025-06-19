@@ -126,7 +126,7 @@ export const Message = ({ message }: { message: MessageType }) => {
                         {displayName}
                     </div>
 
-                <div className="prose max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-headings:my-2 prose-blockquote:my-1 prose-a:text-blue-500 hover:prose-a:text-blue-400 dark:prose-invert dark:prose-a:text-blue-400">
+                <div className="prose text-sm max-w-none prose-p:my-1 prose-ul:my-1 prose-ol:my-1 prose-headings:my-2 prose-blockquote:my-1 prose-a:text-blue-500 hover:prose-a:text-blue-400 dark:prose-invert dark:prose-a:text-blue-400">
                     <Markdown
                         remarkPlugins={[remarkGfm]}
                         components={{
